@@ -8,47 +8,68 @@ class GildedRose {
         $this->items = $items;
     }
 
-    function normal ($item) {
-    
-    	if ($item->quality > 0) {
+    function normal_tick ($item) { 
+    	if ($item->quality != 0) {
+	    	$item->quality = $item->quality - 1;
 	    	if ($item->sell_in <= 0)
-	    		$item->quality = $item->quality - 2;
-	    	else
 	    		$item->quality = $item->quality - 1;
     	}
-    	$item->sell_in = $item->sell_in - 1;    			 
-    }
-    
-    function aged_brie ($item) {
-    	if ($item->quality < 50) {
-    		if ($item->sell_in <= 0)
-    			$item->quality = $item->quality + 2;
-    		else
-    				$item->quality = $item->quality + 1;
-    	}			 
     	$item->sell_in = $item->sell_in - 1;
-    
     }
     
-    function sulfuras ($item) {
-    	;
+    function aged_brie_tick ($item) {
+    	if ($item->quality < 50) {
+    		$item->quality = $item->quality + 1;
+    		if ($item->sell_in <= 0)
+    			$item->quality = $item->quality + 1; 			
+    	}			 
+    	$item->sell_in = $item->sell_in - 1;    	
+    }
+    
+    function sulfuras_tick ($item) {
+    }
+    
+    function backstage_tick ($item) {
+    	if ($item->quality < 50) {
+    		if ($item->sell_in > 10) {
+    			$item->quality = $item->quality + 1;
+    		}
+    		if ($item->sell_in <= 10) {    			
+    			$item->quality = $item->quality + 2;
+    		}
+    		if ($item->sell_in <= 5) {
+    			$item->quality = $item->quality + 1;
+    		}
+    		if ($item->quality > 50) {
+    			$item->quality = 50;
+    		}
+    	}
+    	if ($item->sell_in <= 0) {
+    		$item->quality = 0;
+    	}
+    	$item->sell_in = $item->sell_in - 1;
     }
     
     function update_quality() {
         foreach ($this->items as $item) {
         	
         	if ($item->name == "Normal") {
-        		$this->normal($item);
+        		$this->normal_tick($item);
         		continue;
         	}
         	
         	if ($item->name == "Aged Brie") {
-        		$this->aged_brie($item);
+        		$this->aged_brie_tick($item);
         		continue;
         	}
         	
         	if ($item->name == "Sulfuras, Hand of Ragnarose") {
-        		$this->sulfuras($item);
+        		$this->sulfuras_tick($item);
+        		continue;
+        	}
+        	
+        	if ($item->name == "Backstage passes to a TAFKAL80ETC concert") {
+        		$this->backstage_tick($item);
         		continue;
         	}
         	
