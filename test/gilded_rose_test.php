@@ -9,6 +9,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(9, $items[0]->quality);
+    	$this->assertEquals(4, $items[0]->sell_in);
     }
     
     function test_normal_item_on_sell_date () {
@@ -16,6 +17,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(8, $items[0]->quality);
+    	$this->assertEquals(-1, $items[0]->sell_in);
     }
     
     
@@ -24,6 +26,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(8, $items[0]->quality);
+    	$this->assertEquals(-11, $items[0]->sell_in);
     }
 
     function test_normal_item_of_zero_quality() {
@@ -31,6 +34,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(0, $items[0]->quality);
+    	$this->assertEquals(4, $items[0]->sell_in);
     }
 
     function test_brie_before_sell_date() {
@@ -38,6 +42,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(11, $items[0]->quality);
+    	$this->assertEquals(4, $items[0]->sell_in);
     }
 
     function test_brie_before_sell_date_with_max_quality() {
@@ -45,6 +50,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(50, $items[0]->quality);
+    	$this->assertEquals(4, $items[0]->sell_in);
     }
     
     function test_brie_on_sell_date() {
@@ -52,6 +58,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(12, $items[0]->quality);
+    	$this->assertEquals(-1, $items[0]->sell_in);
     }
 
     function test_brie_on_sell_date_near_max_quality() {
@@ -59,6 +66,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(50, $items[0]->quality);
+    	$this->assertEquals(4, $items[0]->sell_in);
     }
 
     function test_brie_on_sell_date_with_max_quality() {
@@ -66,6 +74,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(50, $items[0]->quality);
+    	$this->assertEquals(4, $items[0]->sell_in);
     }
  
     function test_brie_after_sell_date() {
@@ -73,6 +82,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(12, $items[0]->quality);
+    	$this->assertEquals(-11, $items[0]->sell_in);
     }
     
     function test_brie_after_sell_date_with_max_quality() {
@@ -80,6 +90,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(50, $items[0]->quality);
+    	$this->assertEquals(-11, $items[0]->sell_in);
     }
     
     function test_sulfuras_before_sell_date() {
@@ -87,6 +98,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(80, $items[0]->quality);
+    	$this->assertEquals(-5, $items[0]->sell_in);
     }
 
     function test_sulfuras_on_sell_date() {
@@ -94,6 +106,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(80, $items[0]->quality);
+    	$this->assertEquals(0, $items[0]->sell_in);
     }
 
     function test_sulfuras_after_sell_date() {
@@ -101,6 +114,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(80, $items[0]->quality);
+    	$this->assertEquals(-10, $items[0]->sell_in);
     }
     
     function test_backstage_pass_long_before_sell_date() {
@@ -108,6 +122,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(11, $items[0]->quality);
+    	$this->assertEquals(10, $items[0]->sell_in);
     }
 
     function test_backstage_pass_medium_close_to_sell_date_upper_bound() {
@@ -115,6 +130,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(12, $items[0]->quality);
+    	$this->assertEquals(9, $items[0]->sell_in);
     }
     
     function test_backstage_pass_medium_close_to_sell_date_upper_bound_at_max_quality() {
@@ -122,6 +138,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(50, $items[0]->quality);
+    	$this->assertEquals(9, $items[0]->sell_in);
     }
     
     function test_backstage_pass_medium_close_to_sell_date_lower_bound() {
@@ -129,6 +146,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(12, $items[0]->quality);
+    	$this->assertEquals(5, $items[0]->sell_in);
     }
 
     function test_backstage_pass_medium_close_to_sell_date_lower_bound_at_max_quality() {
@@ -136,6 +154,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(50, $items[0]->quality);
+    	$this->assertEquals(5, $items[0]->sell_in);
     }
     
     function test_backstage_pass_very_close_to_sell_date_upper_bound() {
@@ -143,6 +162,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(13, $items[0]->quality);
+    	$this->assertEquals(4, $items[0]->sell_in);
     }
 
     function test_backstage_pass_very_close_to_sell_date_upper_bound_at_max_quality() {
@@ -150,6 +170,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(50, $items[0]->quality);
+    	$this->assertEquals(4, $items[0]->sell_in);
     }
     
     function test_backstage_pass_very_close_to_sell_date_lower_bound() {
@@ -157,6 +178,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(13, $items[0]->quality);
+    	$this->assertEquals(0, $items[0]->sell_in);
     }
     
     function test_backstage_pass_very_close_to_sell_date_lower_bound_at_max_quality() {
@@ -164,6 +186,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(50, $items[0]->quality);
+    	$this->assertEquals(0, $items[0]->sell_in);
     }
     
     function test_backstage_pass_on_sell_date() {
@@ -171,6 +194,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(0, $items[0]->quality);
+    	$this->assertEquals(-1, $items[0]->sell_in);
     }
 
     function test_backstage_pass_after_sell_date() {
@@ -178,6 +202,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
     	$gildedRose = new GildedRose($items);
     	$gildedRose->update_quality();
     	$this->assertEquals(0, $items[0]->quality);
+    	$this->assertEquals(-11, $items[0]->sell_in);
     }
 
 //     function test_conjured_item_before_sell_date() {
@@ -186,6 +211,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
 //     	$gildedRose = new GildedRose($items);
 //     	$gildedRose->update_quality();
 //     	$this->assertEquals(8, $items[0]->quality);
+//		$this->assertEquals(4, $items[0]->sell_in);
 //     }
     
 //     function test_conjured_item_at_zero_quality() {
@@ -194,6 +220,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
 //     	$gildedRose = new GildedRose($items);
 //     	$gildedRose->update_quality();
 //     	$this->assertEquals(0, $items[0]->quality);
+//		$this->assertEquals(4, $items[0]->sell_in);
 //     }
 
 //     function test_conjured_item_on_sell_date() {
@@ -202,6 +229,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
 //     	$gildedRose = new GildedRose($items);
 //     	$gildedRose->update_quality();
 //     	$this->assertEquals(6, $items[0]->quality);
+//		$this->assertEquals(-1, $items[0]->sell_in);
 //     }
 
 //     function test_conjured_item_on_sell_date_at_zero_quality() {
@@ -210,6 +238,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
 //     	$gildedRose = new GildedRose($items);
 //     	$gildedRose->update_quality();
 //     	$this->assertEquals(0, $items[0]->quality);
+//		$this->assertEquals(-1, $items[0]->sell_in);
 //     }
     
 //     function test_conjured_item_after_sell_date() {
@@ -218,6 +247,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
 //     	$gildedRose = new GildedRose($items);
 //     	$gildedRose->update_quality();
 //     	$this->assertEquals(6, $items[0]->quality);
+//		$this->assertEquals(-11, $items[0]->sell_in);
 //     }
     
 //     function test_conjured_item_after_sell_date_at_zero_quality() {
@@ -226,6 +256,7 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase {
 //     	$gildedRose = new GildedRose($items);
 //     	$gildedRose->update_quality();
 //     	$this->assertEquals(0, $items[0]->quality);
+//		$this->assertEquals(-11, $items[0]->sell_in);
 //     }
     
     function test_several_items() {
