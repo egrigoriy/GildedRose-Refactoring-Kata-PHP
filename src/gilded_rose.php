@@ -10,28 +10,28 @@ class GildedRose {
 
     function normal ($item) {
     
-    	if ($item->quality == 0) {
-    		$item->sell_in = $item->sell_in - 1;
-    		return;
+    	if ($item->quality > 0) {
+	    	if ($item->sell_in <= 0)
+	    		$item->quality = $item->quality - 2;
+	    	else
+	    		$item->quality = $item->quality - 1;
     	}
-    	if ($item->sell_in <= 0)
-    		$item->quality = $item->quality - 2;
-    	else
-    		$item->quality = $item->quality - 1;
     	$item->sell_in = $item->sell_in - 1;    			 
     }
     
     function aged_brie ($item) {
-    	if ($item->quality >= 50) {
-    		$item->sell_in = $item->sell_in - 1;
-    		return;
-    	}
-    	if ($item->sell_in <= 0) 
+    	if ($item->quality < 50) {
+    		if ($item->sell_in <= 0)
     			$item->quality = $item->quality + 2;
-    	else
-    			$item->quality = $item->quality + 1;    			 
+    		else
+    				$item->quality = $item->quality + 1;
+    	}			 
     	$item->sell_in = $item->sell_in - 1;
     
+    }
+    
+    function sulfuras ($item) {
+    	;
     }
     
     function update_quality() {
@@ -44,6 +44,11 @@ class GildedRose {
         	
         	if ($item->name == "Aged Brie") {
         		$this->aged_brie($item);
+        		continue;
+        	}
+        	
+        	if ($item->name == "Sulfuras, Hand of Ragnarose") {
+        		$this->sulfuras($item);
         		continue;
         	}
         	
