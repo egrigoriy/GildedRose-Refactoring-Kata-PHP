@@ -34,12 +34,8 @@ class GildedRose {
 	}
 
 	function aged_brie_tick ($item) {
-		if ($item->quality < 50) {
-			$item->quality = $item->quality + 1;
-			if ($item->sell_in <= 0)
-				$item->quality = $item->quality + 1;
-		}
-		$item->sell_in = $item->sell_in - 1;
+		$brie = new Brie($item->sell_in, $item->quality);
+		$brie->tick($item);
 	}
 
 	function sulfuras_tick ($item) {
@@ -97,6 +93,23 @@ Class Normal {
 			$item->quality = $item->quality - 1;
 			if ($item->sell_in <= 0)
 				$item->quality = $item->quality - 1;
+		}
+		$item->sell_in = $item->sell_in - 1;
+	}
+}
+
+Class Brie {
+
+	function __construct($sell_in, $quality) {
+		$this->sell_in = $sell_in;
+		$this->quality = $quality;
+	}
+
+	function tick ($item) {
+		if ($item->quality < 50) {
+			$item->quality = $item->quality + 1;
+			if ($item->sell_in <= 0)
+				$item->quality = $item->quality + 1;
 		}
 		$item->sell_in = $item->sell_in - 1;
 	}
